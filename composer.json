@@ -16,11 +16,12 @@
     "minimum-stability": "dev",
     "extra": {
         "laravel": {
-            "providers": {
+            "providers": [
                 "EchoBallon\\Yidun\\Captcha\\YidunServiceProvider"
-
+            ],
+            "aliases": {
+                "Debugbar": "EchoBallon\\Yidun\\Captcha\\YidunServiceProvider"
             }
-
         }
     }
 
