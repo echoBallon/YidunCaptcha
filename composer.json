@@ -13,7 +13,6 @@
             "email": "695607679@qq.com"
         }
     ],
-    "minimum-stability": "dev",
     "extra": {
         "laravel": {
             "providers": [
