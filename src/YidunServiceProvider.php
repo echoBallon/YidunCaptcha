@@ -9,6 +9,7 @@
 namespace EchoBallon\Yidun\Captcha;
 
 
+use App\YidunClass\SecretPair;
 use EchoBallon\Yidun\Captcha\Plugins\NECaptchaVerifier;
 use Illuminate\Support\ServiceProvider;
 
@@ -16,6 +17,9 @@ class YidunServiceProvider extends ServiceProvider
 {
 
 
+    private  $YIDUN_CAPTCHA_ID;
+    private  $YIDUN_CAPTCHA_SECRET_ID;
+    private  $YIDUN_CAPTCHA_SECRET_KEY;
     /**
      * Boot the authentication services for the application.
      *
@@ -23,7 +27,9 @@ class YidunServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+        $this->YIDUN_CAPTCHA_ID = env('YIDUN_CAPTCHA_ID');
+        $this->YIDUN_CAPTCHA_SECRET_ID = env('YIDUN_CAPTCHA_SECRET_ID');
+        $this->YIDUN_CAPTCHA_SECRET_KEY = env('YIDUN_CAPTCHA_SECRET_KEY');
 
     }
 
@@ -34,8 +40,12 @@ class YidunServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
         //
-        $this->app->bind('yidun',NECaptchaVerifier::class);
+        $this->app->bind('yidun',function (){
+
+            return  new NECaptchaVerifier($this->YIDUN_CAPTCHA_ID,new SecretPair($this->YIDUN_CAPTCHA_SECRET_ID,$this->YIDUN_CAPTCHA_SECRET_KEY));
+        });
     }
 
 }
